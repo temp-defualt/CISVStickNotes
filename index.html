@@ -1,0 +1,204 @@
+<html>
+<head>
+    <title>CISV Sticky Notes Board</title>
+</head>
+<link src="http://chriszarate.github.io/sheetrock/css/sheetrock.css" />
+<style>
+@import url(http://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
+ * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+::-moz-selection {
+    background: #C6FF91;
+    text-shadow: none;
+}
+::selection {
+    background: #C6FF91;
+    text-shadow: none;
+}
+.clearfix:before, .clearfix:after {
+    content:" ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+body {
+    background: url(http://i.stack.imgur.com/jGlzr.png);
+    background-size:   cover;                      
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    margin: 60px auto 0 auto;
+}
+/* Note styles */
+ .note-wrap {
+    width: 300px;
+    min-height: 235px;
+    padding: 35px;
+    margin: 0 22px 44px 22px;
+    position: relative;
+    font-size: 24px;
+    vertical-align: top;
+    display: inline-block;
+    font-family:'Nothing You Could Do', cursive;
+    color: #4b453c;
+    background: #F7E999;
+    line-height: 34px;
+    text-align: center;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+}
+.note-wrap:before {
+    display: block;
+    content:"";
+    background: rgba(227, 200, 114, 0.4);
+    width: 130px;
+    height: 28px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 6px/18px 0;
+    position: absolute;
+    top: -13px;
+    left: 50px;
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(-2deg);
+    -o-transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+.note-wrap a {
+    color: #6b824f;
+    text-decoration: none;
+    font-size: 20px;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.note-wrap a:hover {
+    color: #D83A25;
+}
+.note-wrap img {
+    width: 100%;
+}
+.note-yellow {
+    background: #F7E999;
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    transform: rotate(2deg);
+}
+.note-blue {
+    background: #b9dcf4;
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(-2deg);
+    -o-transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+.note-pink {
+    background: #FFBDA3;
+    -webkit-transform: rotate(1deg);
+    -moz-transform: rotate(1deg);
+    -o-transform: rotate(1deg);
+    -ms-transform: rotate(1deg);
+    transform: rotate(1deg);
+}
+.note-green {
+    background: #CAF4B9;
+    -webkit-transform: rotate(-1deg);
+    -moz-transform: rotate(-1deg);
+    -o-transform: rotate(-1deg);
+    -ms-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+}
+</style>
+
+<body>
+
+<script id="hr-template" type="text/x-handlebars-template">
+    {{#ifCond cells.status "בוצע"}}
+        <aside class="note-wrap note-green">
+    {{else}}
+        {{#ifCond cells.status "בביצוע"}}    
+        <aside class="note-wrap note-yellow">
+        {{else}}
+        <aside class="note-wrap note-blue">
+        {{/ifCond}}
+    {{/ifCond}}
+        <small>({{cells.status}})</small>
+        <h1>{{cells.title}}</h1>
+        <p>{{cells.desc}}</p>
+        <p><strong>אחראים : {{cells.members}}</strong></p>
+        <strong>{{trimString cells.date 0 15}}</strong><br />
+        <a href="mailto:{{cells.mail}}">Click here</a>
+    </aside>
+    </script>
+<div class="wrapper clearfix"></div>
+<div class="wrapper1 clearfix"></div>
+<div class="wrapper2 clearfix"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+<script src="http://chriszarate.github.io/sheetrock/dist/jquery.sheetrock.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+<script>
+// Define spreadsheet URL.
+var mySpreadsheet = 'https://docs.google.com/spreadsheet/ccc?key=1F2NU0cJuWQ2YSDvHakUyiNe_XkIaP8TGuXbZD62RGqo#gid=0';
+
+// Compile the Handlebars template for HR leaders.
+var HRTemplate = Handlebars.compile($('#hr-template').html());
+
+// Load top five HR leaders.
+$('.wrapper').sheetrock({
+    url: mySpreadsheet,
+    sql: 'select * where D like "לביצוע"',
+    chunkSize: 5,
+    headersOff: true,
+    rowHandler: HRTemplate
+});
+$('.wrapper1').sheetrock({
+    url: mySpreadsheet,
+    sql: 'select * where D like "בביצוע"',
+    chunkSize: 5,
+    headersOff: true,
+    rowHandler: HRTemplate
+});
+$('.wrapper2').sheetrock({
+    url: mySpreadsheet,
+    sql: 'select * where D like "בוצע"',
+    chunkSize: 5,
+    headersOff: true,
+    rowHandler: HRTemplate
+});
+</script>
+<script>
+Handlebars.registerHelper("debug", function(optionalValue) {
+    console.log("Current Context");
+    console.log("====================");
+    console.log(this);
+    if (optionalValue) {
+        console.log("Value");
+        console.log("====================");
+        console.log(optionalValue);
+    }
+});
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+  if(v1 === v2) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+Handlebars.registerHelper('trimString', function(passedString, startstring, endstring) {
+   var theString = passedString.substring( startstring, endstring );
+   return new Handlebars.SafeString(theString)
+});
+</script>
+</html>
