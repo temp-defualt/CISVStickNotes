@@ -161,7 +161,6 @@ var HRTemplate = Handlebars.compile($('#hr-template').html());
 $('.wrapper').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "לביצוע"',
-    chunkSize: 5,
     headersOff: true,
     rowHandler: HRTemplate
 });
