@@ -150,6 +150,7 @@ body {
 <script src="http://chriszarate.github.io/sheetrock/dist/jquery.sheetrock.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
 <script>
+alert("loaded") ;
 // Define spreadsheet URL.
 var mySpreadsheet = 'https://docs.google.com/spreadsheet/ccc?key=1F2NU0cJuWQ2YSDvHakUyiNe_XkIaP8TGuXbZD62RGqo#gid=0';
 
@@ -164,6 +165,7 @@ $('.wrapper').sheetrock({
     headersOff: true,
     rowHandler: HRTemplate
 });
+alert("after wrapper");
 $('.wrapper1').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "בביצוע"',
@@ -180,6 +182,7 @@ $('.wrapper2').sheetrock({
 });
 </script>
 <script>
+alert("Handle Bars");
 Handlebars.registerHelper("debug", function(optionalValue) {
     console.log("Current Context");
     console.log("====================");
