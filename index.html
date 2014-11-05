@@ -1,6 +1,8 @@
 <html>
 <head>
     <title>CISV Sticky Notes Board</title>
+	<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <link src="https://chriszarate.github.io/sheetrock/css/sheetrock.css" />
 <style>
@@ -45,7 +47,7 @@ body {
     padding: 35px;
     margin: 0 22px 44px 22px;
     position: relative;
-    font-size: 24px;
+    font-size: 1em;
     vertical-align: top;
     display: inline-block;
     font-family:'Nothing You Could Do', cursive;
@@ -75,7 +77,7 @@ body {
 .note-wrap a {
     color: #6b824f;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 0.8em;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
@@ -87,6 +89,9 @@ body {
 }
 .note-wrap img {
     width: 100%;
+}
+.note-wrap h1 {
+    font-size: 1.5em;
 }
 .note-yellow {
     background: #F7E999;
@@ -123,67 +128,16 @@ body {
 </style>
 
 <body>
-
-<script id="hr-template" type="text/x-handlebars-template">
-    {{#ifCond cells.status "בוצע"}}
-        <aside class="note-wrap note-green">
-    {{else}}
-        {{#ifCond cells.status "בביצוע"}}    
-        <aside class="note-wrap note-yellow">
-        {{else}}
-        <aside class="note-wrap note-blue">
-        {{/ifCond}}
-    {{/ifCond}}
-        <small>({{cells.status}})</small>
-        <h1>{{cells.title}}</h1>
-        <p>{{cells.desc}}</p>
-        <p><strong>אחראים : {{cells.members}}</strong></p>
-        <strong>{{trimString cells.date 0 15}}</strong><br />
-        <a href="mailto:{{cells.mail}}">Click here</a>
-    </aside>
-    </script>
 <div class="wrapper clearfix"></div>
 <div class="wrapper1 clearfix"></div>
 <div class="wrapper2 clearfix"></div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
 <script src="https://chriszarate.github.io/sheetrock/dist/jquery.sheetrock.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
-<script>
-try {
-    Handlebars.registerHelper("debug", function(optionalValue) {
-    console.log("Current Context");
-    console.log("====================");
-    console.log(this);
-    if (optionalValue) {
-        console.log("Value");
-        console.log("====================");
-        console.log(optionalValue);
-    }
-});
-Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-  if(v1 === v2) {
-    return options.fn(this);
-  }
-  return options.inverse(this);
-});
-Handlebars.registerHelper('trimString', function(passedString, startstring, endstring) {
-   var theString = passedString.substring( startstring, endstring );
-   return new Handlebars.SafeString(theString)
-});
-}
-catch(err) {
-    alert("handlebars error");
-    alert(err);
-}
-</script>
 <script>
 try {
     // Define spreadsheet URL.
 var mySpreadsheet = 'https://docs.google.com/spreadsheet/ccc?key=1F2NU0cJuWQ2YSDvHakUyiNe_XkIaP8TGuXbZD62RGqo#gid=0';
-
-// Compile the Handlebars template for HR leaders.
-var HRTemplate = Handlebars.compile($('#hr-template').html());
 
 // Load top five HR leaders.
 $('.wrapper').sheetrock({
@@ -192,18 +146,19 @@ $('.wrapper').sheetrock({
     headersOff: true,
     rowHandler: function(data) {sticky_note(".wrapper", data )}
 });
-$('.wrapper1').sheetrock({
+$('.wrapper').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "בביצוע"',
     headersOff: true,
-    rowHandler: HRTemplate
+    rowHandler: function(data) {sticky_note(".wrapper1", data )}
 });
-$('.wrapper2').sheetrock({
+$('.wrapper').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "בוצע"',
     headersOff: true,
-    rowHandler: HRTemplate
+    rowHandler: function(data) {sticky_note(".wrapper2", data )}
 });
+
 }
 catch(err) {
     alert("error");
@@ -220,8 +175,15 @@ function sticky_note(placeholder, data)
     note += '<div class="note-wrap note-blue">';
   }
   note += '<small>(' + data.cells.status + ')</small>';
+  note += '<h1>' + data.cells.title + '</h1>';
+  note += '<p>' + data.cells.desc + '</p>';
+  note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
+  note += '<strong>' + data.cells.date.substring(0, 15)  + '</strong><br />';
+  note += '<a href="mailto:' + data.cells.mail + '">Click here</a>';
   note += '</div>';
  $(placeholder).append(note) ;
 }
+
+
 </script>
 </html>
