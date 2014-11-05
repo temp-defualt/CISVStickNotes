@@ -150,8 +150,8 @@ body {
 <script src="http://chriszarate.github.io/sheetrock/dist/jquery.sheetrock.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
 <script>
-alert("Handle Bars");
-Handlebars.registerHelper("debug", function(optionalValue) {
+try {
+    Handlebars.registerHelper("debug", function(optionalValue) {
     console.log("Current Context");
     console.log("====================");
     console.log(this);
@@ -171,10 +171,15 @@ Handlebars.registerHelper('trimString', function(passedString, startstring, ends
    var theString = passedString.substring( startstring, endstring );
    return new Handlebars.SafeString(theString)
 });
+}
+catch(err) {
+    alert("handlebars error");
+    alert(err);
+}
 </script>
 <script>
-alert("loaded") ;
-// Define spreadsheet URL.
+try {
+    // Define spreadsheet URL.
 var mySpreadsheet = 'https://docs.google.com/spreadsheet/ccc?key=1F2NU0cJuWQ2YSDvHakUyiNe_XkIaP8TGuXbZD62RGqo#gid=0';
 
 // Compile the Handlebars template for HR leaders.
@@ -187,20 +192,23 @@ $('.wrapper').sheetrock({
     headersOff: true,
     rowHandler: HRTemplate
 });
-alert("after wrapper");
 $('.wrapper1').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "בביצוע"',
-    chunkSize: 5,
     headersOff: true,
     rowHandler: HRTemplate
 });
 $('.wrapper2').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "בוצע"',
-    chunkSize: 5,
     headersOff: true,
     rowHandler: HRTemplate
 });
+}
+catch(err) {
+    alert("error");
+    alert(err);
+}
+
 </script>
 </html>
