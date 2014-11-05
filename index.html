@@ -42,6 +42,7 @@ body {
 }
 /* Note styles */
  .note-wrap {
+ direction: rtl;
     width: 280px;
     min-height: 235px;
     padding: 35px;
@@ -178,7 +179,7 @@ function sticky_note(placeholder, data)
   note += '<h1>' + data.cells.title + '</h1>';
   note += '<p>' + data.cells.desc + '</p>';
   note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
-  note += '<strong>' + data.cells.date.substring(0, 15)  + '</strong><br />';
+  note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15)  + '<br />';
   note += '<a href="mailto:' + data.cells.mail + '">Click here</a>';
   note += '</div>';
  $(placeholder).append(note) ;
