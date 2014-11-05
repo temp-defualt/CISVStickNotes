@@ -190,7 +190,7 @@ $('.wrapper').sheetrock({
     url: mySpreadsheet,
     sql: 'select * where D like "לביצוע"',
     headersOff: true,
-    rowHandler: HRTemplate
+    rowHandler: function(data) {sticky_note(".wrapper", data )}
 });
 $('.wrapper1').sheetrock({
     url: mySpreadsheet,
@@ -209,6 +209,19 @@ catch(err) {
     alert("error");
     alert(err);
 }
-
+function sticky_note(placeholder, data)
+{
+  var note = "";
+  if (data.cells.status == "בביצוע") {
+    note += '<div class="note-wrap note-yellow">';
+  } else if (data.cells.status == "בוצע") {
+    note += '<div class="note-wrap note-green">';
+  } else {
+    note += '<div class="note-wrap note-blue">';
+  }
+  note += '<small>(' + data.cells.status + ')</small>';
+  note += '</div>';
+ $(placeholder).append(note) ;
+}
 </script>
 </html>
