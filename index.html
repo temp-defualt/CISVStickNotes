@@ -46,7 +46,7 @@ body {
     width: 280px;
     min-height: 235px;
     padding: 35px;
-    margin: 0 22px 44px 22px;
+    margin: 0 22px 44px 0;
     position: relative;
     font-size: 1em;
     vertical-align: top;
@@ -136,55 +136,46 @@ body {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
 <script src="https://chriszarate.github.io/sheetrock/dist/jquery.sheetrock.min.js"></script>
 <script>
-try {
-    // Define spreadsheet URL.
-var mySpreadsheet = 'https://docs.google.com/spreadsheet/ccc?key=1F2NU0cJuWQ2YSDvHakUyiNe_XkIaP8TGuXbZD62RGqo#gid=0';
-
+$(function() {
+var mySpreadsheet = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x6F\x63\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x73\x70\x72\x65\x61\x64\x73\x68\x65\x65\x74\x2F\x63\x63\x63\x3F\x6B\x65\x79\x3D\x31\x46\x32\x4E\x55\x30\x63\x4A\x75\x57\x51\x32\x59\x53\x44\x76\x48\x61\x6B\x55\x79\x69\x4E\x65\x5F\x58\x6B\x49\x61\x50\x38\x54\x47\x75\x58\x62\x5A\x44\x36\x32\x52\x47\x71\x6F\x23\x67\x69\x64\x3D\x30"];
+try 
+{
+// Define spreadsheet URL.
+mySpreadsheet = mySpreadsheet[0];
 // Load top five HR leaders.
 $('.wrapper').sheetrock({
-    url: mySpreadsheet,
-    sql: 'select * where D like "לביצוע"',
-    headersOff: true,
-    rowHandler: function(data) {sticky_note(".wrapper", data )}
+url: mySpreadsheet,
+sql: 'select *',
+headersOff: true,
+rowHandler: function(data) {sticky_note(".wrapper", data );}
 });
-$('.wrapper').sheetrock({
-    url: mySpreadsheet,
-    sql: 'select * where D like "בביצוע"',
-    headersOff: true,
-    rowHandler: function(data) {sticky_note(".wrapper1", data )}
-});
-$('.wrapper').sheetrock({
-    url: mySpreadsheet,
-    sql: 'select * where D like "בוצע"',
-    headersOff: true,
-    rowHandler: function(data) {sticky_note(".wrapper2", data )}
-});
-
 }
 catch(err) {
-    alert("error");
-    alert(err);
+alert("error");
+alert(err);
 }
 function sticky_note(placeholder, data)
 {
-  var note = "";
-  if (data.cells.status == "בביצוע") {
-    note += '<div class="note-wrap note-yellow">';
-  } else if (data.cells.status == "בוצע") {
-    note += '<div class="note-wrap note-green">';
-  } else {
-    note += '<div class="note-wrap note-blue">';
-  }
-  note += '<small>(' + data.cells.status + ')</small>';
-  note += '<h1>' + data.cells.title + '</h1>';
-  note += '<p>' + data.cells.desc + '</p>';
-  note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
-  note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15)  + '<br />';
-  note += '<a href="mailto:' + data.cells.mail + '">Click here</a>';
-  note += '</div>';
- $(placeholder).append(note) ;
+var note = "";
+if (data.cells.status == "בביצוע") {
+placeholder = ".wrapper1";
+note += '<div class="note-wrap note-yellow">';
+} else if (data.cells.status == "בוצע") {
+placeholder = ".wrapper2";
+note += '<div class="note-wrap note-green">';
+} else {
+placeholder = ".wrapper";
+note += '<div class="note-wrap note-blue">';
 }
-
-
+note += '<small>(' + data.cells.status + ')</small>';
+note += '<h1>' + data.cells.title + '</h1>';
+note += '<p>' + data.cells.desc + '</p>';
+note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
+note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15) + '<br />';
+note += '<a href="mailto:' + data.cells.mail + '">Click here</a>';
+note += '</div>';
+$(placeholder).append(note) ;
+}
+});
 </script>
 </html>
