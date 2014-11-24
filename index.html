@@ -1,190 +1,222 @@
+<!DOCTYPE HTML>
 <html>
-<head>
-    <title>CISV Sticky Notes Board</title>
-	<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<link src="https://chriszarate.github.io/sheetrock/css/sheetrock.css" />
-<style>
-@import url(https://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
- * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-::-moz-selection {
-    background: #C6FF91;
-    text-shadow: none;
-}
-::selection {
-    background: #C6FF91;
-    text-shadow: none ;
-}
-.clearfix:before, .clearfix:after {
-    content:" ";
-    display: table;
-}
-.clearfix:after {
-    clear: both;
-}
-.clearfix {
-    *zoom: 1;
-}
-body {
-    background: url(http://i.stack.imgur.com/jGlzr.png);
-    background-size:   cover;                      
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0;
-}
-.wrapper {
-    margin: 60px auto 0 auto;
-}
-/* Note styles */
- .note-wrap {
- direction: rtl;
-    width: 280px;
-    min-height: 235px;
-    padding: 35px;
-    margin: 0 22px 44px 22px;
-    position: relative;
-    font-size: 1em;
-    vertical-align: top;
-    display: inline-block;
-    font-family:'Nothing You Could Do', cursive;
-    color: #4b453c;
-    background: #F7E999;
-    line-height: 34px;
-    text-align: center;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-}
-.note-wrap:before {
-    display: block;
-    content:"";
-    background: rgba(227, 200, 114, 0.4);
-    width: 130px;
-    height: 28px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    border-radius: 6px/18px 0;
-    position: absolute;
-    top: -13px;
-    left: 50px;
-    -webkit-transform: rotate(-2deg);
-    -moz-transform: rotate(-2deg);
-    -o-transform: rotate(-2deg);
-    -ms-transform: rotate(-2deg);
-    transform: rotate(-2deg);
-}
-.note-wrap a {
-    color: #6b824f;
-    text-decoration: none;
-    font-size: 0.8em;
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    -ms-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-}
-.note-wrap a:hover {
-    color: #D83A25;
-}
-.note-wrap img {
-    width: 100%;
-}
-.note-wrap h1 {
-    font-size: 1.5em;
-}
-.note-yellow {
-    background: #F7E999;
-    -webkit-transform: rotate(2deg);
-    -moz-transform: rotate(2deg);
-    -o-transform: rotate(2deg);
-    -ms-transform: rotate(2deg);
-    transform: rotate(2deg);
-}
-.note-blue {
-    background: #b9dcf4;
-    -webkit-transform: rotate(-2deg);
-    -moz-transform: rotate(-2deg);
-    -o-transform: rotate(-2deg);
-    -ms-transform: rotate(-2deg);
-    transform: rotate(-2deg);
-}
-.note-pink {
-    background: #FFBDA3;
-    -webkit-transform: rotate(1deg);
-    -moz-transform: rotate(1deg);
-    -o-transform: rotate(1deg);
-    -ms-transform: rotate(1deg);
-    transform: rotate(1deg);
-}
-.note-green {
-    background: #CAF4B9;
-    -webkit-transform: rotate(-1deg);
-    -moz-transform: rotate(-1deg);
-    -o-transform: rotate(-1deg);
-    -ms-transform: rotate(-1deg);
-    transform: rotate(-1deg);
-}
-</style>
+	<head>
+		<title>CISV Sticky Notes Board</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="CISV Sticky Notes Board" />
+		<meta name="keywords" content="CISV Israel JB Sticky Notes Board" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+		<link src="css/sheetrock.css" />
+	</head>
+	<style>
+	@import url(https://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
+	 * {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	::-moz-selection {
+		background: #C6FF91;
+		text-shadow: none;
+	}
+	::selection {
+		background: #C6FF91;
+		text-shadow: none ;
+	}
+	.clearfix:before, .clearfix:after {
+		content:" ";
+		display: table;
+	}
+	.clearfix:after {
+		clear: both;
+	}
+	.clearfix {
+		*zoom: 1;
+	}
+	body {
+		background: url(img/bg.png);
+		background-size:   cover;                      
+		background-repeat: no-repeat;
+		margin: 0;
+		padding: 0;
+	}
 
-<body>
-<div class="wrapper clearfix"></div>
-<div class="wrapper1 clearfix"></div>
-<div class="wrapper2 clearfix"></div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
-<script src="https://chriszarate.github.io/sheetrock/dist/jquery.sheetrock.min.js"></script>
-<script>
-try {
-    // Define spreadsheet URL.
-var mySpreadsheet = 'https://docs.google.com/spreadsheet/ccc?key=1F2NU0cJuWQ2YSDvHakUyiNe_XkIaP8TGuXbZD62RGqo#gid=0';
+	/* Note styles */
+	 .note-wrap {
+	 direction: rtl;
+		width: 280px;
+		min-height: 235px;
+		padding: 35px;
+		margin: 0 22px 44px 0;
+		position: relative;
+		font-size: 1em;
+		vertical-align: top;
+		display: inline-block;
+		font-family:'Nothing You Could Do', cursive;
+		color: #4b453c;
+		background: #F7E999;
+		line-height: 34px;
+		text-align: center;
+		box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+	}
+	.note-wrap:before {
+		display: block;
+		content:"";
+		background: rgba(227, 200, 114, 0.4);
+		width: 130px;
+		height: 28px;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		border-radius: 6px/18px 0;
+		position: absolute;
+		top: -13px;
+		left: 50px;
+		-webkit-transform: rotate(-2deg);
+		-moz-transform: rotate(-2deg);
+		-o-transform: rotate(-2deg);
+		-ms-transform: rotate(-2deg);
+		transform: rotate(-2deg);
+	}
+	.note-wrap a {
+		color: #6b824f;
+		text-decoration: none;
+		font-size: 0.8em;
+		-webkit-transition: all 0.4s ease;
+		-moz-transition: all 0.4s ease;
+		-o-transition: all 0.4s ease;
+		-ms-transition: all 0.4s ease;
+		transition: all 0.4s ease;
+	}
+	.note-wrap a:hover {
+		color: #D83A25;
+	}
+	.note-wrap img {
+		width: 100%;
+	}
+	.note-wrap h1 {
+		font-size: 1.5em;
+	}
+	.note-yellow {
+		background: #F7E999;
+		-webkit-transform: rotate(2deg);
+		-moz-transform: rotate(2deg);
+		-o-transform: rotate(2deg);
+		-ms-transform: rotate(2deg);
+		transform: rotate(2deg);
+	}
+	.note-blue {
+		background: #b9dcf4;
+		-webkit-transform: rotate(-2deg);
+		-moz-transform: rotate(-2deg);
+		-o-transform: rotate(-2deg);
+		-ms-transform: rotate(-2deg);
+		transform: rotate(-2deg);
+	}
+	.note-pink {
+		background: #FFBDA3;
+		-webkit-transform: rotate(1deg);
+		-moz-transform: rotate(1deg);
+		-o-transform: rotate(1deg);
+		-ms-transform: rotate(1deg);
+		transform: rotate(1deg);
+	}
+	.note-green {
+		background: #CAF4B9;
+		-webkit-transform: rotate(-1deg);
+		-moz-transform: rotate(-1deg);
+		-o-transform: rotate(-1deg);
+		-ms-transform: rotate(-1deg);
+		transform: rotate(-1deg);
+	}
+	</style>
+	<body>
 
-// Load top five HR leaders.
-$('.wrapper').sheetrock({
-    url: mySpreadsheet,
-    sql: 'select * where D like "לביצוע"',
-    headersOff: true,
-    rowHandler: function(data) {sticky_note(".wrapper", data )}
-});
-$('.wrapper').sheetrock({
-    url: mySpreadsheet,
-    sql: 'select * where D like "בביצוע"',
-    headersOff: true,
-    rowHandler: function(data) {sticky_note(".wrapper1", data )}
-});
-$('.wrapper').sheetrock({
-    url: mySpreadsheet,
-    sql: 'select * where D like "בוצע"',
-    headersOff: true,
-    rowHandler: function(data) {sticky_note(".wrapper2", data )}
-});
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="#todo">Todo</a></li>
+					<li><a href="#progress">In Progress</a></li>
+					<li><a href="#done">Done</a></li>
+				</ul>
+			</nav>
 
-}
-catch(err) {
-    alert("error");
-    alert(err);
-}
-function sticky_note(placeholder, data)
-{
-  var note = "";
-  if (data.cells.status == "בביצוע") {
-    note += '<div class="note-wrap note-yellow">';
-  } else if (data.cells.status == "בוצע") {
-    note += '<div class="note-wrap note-green">';
-  } else {
-    note += '<div class="note-wrap note-blue">';
-  }
-  note += '<small>(' + data.cells.status + ')</small>';
-  note += '<h1>' + data.cells.title + '</h1>';
-  note += '<p>' + data.cells.desc + '</p>';
-  note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
-  note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15)  + '<br />';
-  note += '<a href="mailto:' + data.cells.mail + '">Click here</a>';
-  note += '</div>';
- $(placeholder).append(note) ;
-}
+		<!-- Todo -->
+			<div class="wrapper style2">
+				<article id="todo">
+					<div class="wrapper1 clearfix"></div>
+				</article>
+			</div>
+		<!-- Progress -->
+			<div class="wrapper style2">
+				<article id="progress">
+					<div class="wrapper2 clearfix"></div>
+				</article>
+			</div>
+		<!-- Done -->
+			<div class="wrapper style2">
+				<article id="done">
+					<div class="wrapper3 clearfix"></div>
+				</article>
+			</div>
 
-
-</script>
+	</body>
+	<script src="js/jquery.sheetrock.min.js"></script>
+	<script>
+		$(function() {
+			var mySpreadsheet = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x6F\x63\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x73\x70\x72\x65\x61\x64\x73\x68\x65\x65\x74\x2F\x63\x63\x63\x3F\x6B\x65\x79\x3D\x31\x46\x32\x4E\x55\x30\x63\x4A\x75\x57\x51\x32\x59\x53\x44\x76\x48\x61\x6B\x55\x79\x69\x4E\x65\x5F\x58\x6B\x49\x61\x50\x38\x54\x47\x75\x58\x62\x5A\x44\x36\x32\x52\x47\x71\x6F\x23\x67\x69\x64\x3D\x30"];
+			try
+			{
+				// Define spreadsheet URL.
+				mySpreadsheet = mySpreadsheet[0];
+				// Load top five HR leaders.
+				$('.wrapper').sheetrock({
+					url: mySpreadsheet,
+					sql: 'select *',
+					headersOff: true,
+					rowHandler: function(data) {sticky_note(".wrapper", data );}
+				});
+			}
+			catch(err)
+			{
+				alert("error");
+				console.log(err);
+			}
+			function sticky_note(placeholder, data)
+			{
+				var note = "";
+				
+				if (data.cells.status == "בביצוע") {
+					placeholder = ".wrapper1";
+					note += '<div class="note-wrap note-yellow">';
+				} else if (data.cells.status == "בוצע") {
+					placeholder = ".wrapper2";
+					note += '<div class="note-wrap note-green">';
+				} else {
+					placeholder = ".wrapper";
+					note += '<div class="note-wrap note-blue">';
+				}
+				
+				note += '<small>(' + data.cells.status + ')</small>';
+				note += '<h1>' + data.cells.title + '</h1>';
+				note += '<p>' + data.cells.desc + '</p>';
+				note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
+				note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15) + '<br />';
+				note += '<a href="mailto:' + data.cells.mail + '">Click here</a>';
+				note += '</div>';
+				$(placeholder).append(note) ;
+			}
+		});
+	</script>
 </html>
