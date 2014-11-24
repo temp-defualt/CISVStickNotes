@@ -181,11 +181,11 @@
 				// Define spreadsheet URL.
 				mySpreadsheet = mySpreadsheet[0];
 				// Load top five HR leaders.
-				$('.wrapper').sheetrock({
+				$('.wrapper1').sheetrock({
 					url: mySpreadsheet,
 					sql: 'select *',
 					headersOff: true,
-					rowHandler: function(data) {sticky_note(".wrapper", data );}
+					rowHandler: function(data) {sticky_note(".wrapper1", data );}
 				});
 			}
 			catch(err)
@@ -198,13 +198,13 @@
 				var note = "";
 				
 				if (data.cells.status == "בביצוע") {
-					placeholder = ".wrapper1";
+					placeholder = ".wrapper2";
 					note += '<div class="note-wrap note-yellow">';
 				} else if (data.cells.status == "בוצע") {
-					placeholder = ".wrapper2";
+					placeholder = ".wrapper3";
 					note += '<div class="note-wrap note-green">';
 				} else {
-					placeholder = ".wrapper";
+					placeholder = ".wrapper1";
 					note += '<div class="note-wrap note-blue">';
 				}
 				
