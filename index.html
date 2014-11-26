@@ -8,10 +8,13 @@
 		<meta name="description" content="CISV Sticky Notes Board" />
 		<meta name="keywords" content="CISV Israel JB Sticky Notes Board" />
 		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/all.js"></script>
+		<!--
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.scrolly.min.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
+		-->
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -218,27 +221,29 @@
 			</div>
 
 	</body>
+	<!--
 	<script type='application/javascript' src='js/fastclick.js'></script>
 	<script src="js/jquery.sheetrock.min.js"></script>
+	-->
 	<script>
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		navigator.splashscreen.hide();
 	}
-	//$(function() {
+	$(function() {
 	var mySpreadsheet = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x6F\x63\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x73\x70\x72\x65\x61\x64\x73\x68\x65\x65\x74\x2F\x63\x63\x63\x3F\x6B\x65\x79\x3D\x31\x46\x32\x4E\x55\x30\x63\x4A\x75\x57\x51\x32\x59\x53\x44\x76\x48\x61\x6B\x55\x79\x69\x4E\x65\x5F\x58\x6B\x49\x61\x50\x38\x54\x47\x75\x58\x62\x5A\x44\x36\x32\x52\x47\x71\x6F\x23\x67\x69\x64\x3D\x30"];
 		try
 		{
 			// Define spreadsheet URL.
 			mySpreadsheet = mySpreadsheet[0];
 			// Load top five HR leaders.
-			$('.wrapper1').sheetrock({
+			setTimeout(function () {$('.wrapper1').sheetrock({
 				url: mySpreadsheet,
 				sql: 'select *',
 				headersOff: true,
 				userCallback: function(opt) {setTimeout(function () { $('.loader').remove(); $('.wrapper').show();}, 4000);},
 				rowHandler: function(data) {sticky_note( data );}
-			});
+			});}, 100);
 		}
 		catch(err)
 		{
@@ -284,6 +289,6 @@
 			$(placeholder).append(note) ;
 		}
 		FastClick.attach(document.body);
-	//});
+	});
 	</script>
 </html>
