@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>CISV Sticky Notes Board</title>
+		<title>JB Notes (ISR)</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -20,10 +20,11 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<link src="css/sheetrock.css" />
+		<link rel="stylesheet" href="css/rainbow.css">
 	</head>
 	<style>
 	 * {
-	 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
 		-webkit-tap-highlight-color: transparent;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -158,6 +159,10 @@
 	.note-footer a:hover {
 		color: #D83A25;
 	}
+	.wrapper {
+		display: none ;
+	}
+	/*** loader ***/
 	</style>
 	<body>
 
@@ -167,9 +172,32 @@
 					<li><a href="#todo">Todo</a></li>
 					<li><a href="#progress">In Progress</a></li>
 					<li><a href="#done">Done</a></li>
+					<li><a href="http://tinyurl.com/CISVStickyNotes">Web Version</a></li>
 				</ul>
 			</nav>
-
+		<div class="loader">
+			<div class="ground">
+				<div class="ground-logo">
+					<img src="img/logo_black_transparent.png">
+				</div>
+			</div>
+			<div class="sky">
+				<div class="cloud variant-1"></div>
+				<div class="cloud variant-2"></div>
+				<div class="cloud variant-3"></div>
+				<div class="cloud variant-4"></div>
+				<div class="cloud variant-5"></div>
+			</div>
+			<div class="rainbow-preloader">
+				<div class="rainbow-stripe"></div>
+				<div class="rainbow-stripe"></div>
+				<div class="rainbow-stripe"></div>
+				<div class="rainbow-stripe"></div>
+				<div class="rainbow-stripe"></div>
+				<div class="shadow"></div>
+				<div class="shadow"></div>
+			</div>
+		</div>
 		<!-- Todo -->
 			<div class="wrapper style2">
 				<article id="todo">
@@ -193,65 +221,69 @@
 	<script type='application/javascript' src='js/fastclick.js'></script>
 	<script src="js/jquery.sheetrock.min.js"></script>
 	<script>
-		$(function() {
-		var mySpreadsheet = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x6F\x63\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x73\x70\x72\x65\x61\x64\x73\x68\x65\x65\x74\x2F\x63\x63\x63\x3F\x6B\x65\x79\x3D\x31\x46\x32\x4E\x55\x30\x63\x4A\x75\x57\x51\x32\x59\x53\x44\x76\x48\x61\x6B\x55\x79\x69\x4E\x65\x5F\x58\x6B\x49\x61\x50\x38\x54\x47\x75\x58\x62\x5A\x44\x36\x32\x52\x47\x71\x6F\x23\x67\x69\x64\x3D\x30"];
-			try
-			{
-				// Define spreadsheet URL.
-				mySpreadsheet = mySpreadsheet[0];
-				// Load top five HR leaders.
-				$('.wrapper1').sheetrock({
-					url: mySpreadsheet,
-					sql: 'select *',
-					headersOff: true,
-					rowHandler: function(data) {sticky_note( data );}
-				});
+	document.addEventListener("deviceready", onDeviceReady, false);
+	function onDeviceReady() {
+		navigator.splashscreen.hide();
+	}
+	//$(function() {
+	var mySpreadsheet = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x6F\x63\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x73\x70\x72\x65\x61\x64\x73\x68\x65\x65\x74\x2F\x63\x63\x63\x3F\x6B\x65\x79\x3D\x31\x46\x32\x4E\x55\x30\x63\x4A\x75\x57\x51\x32\x59\x53\x44\x76\x48\x61\x6B\x55\x79\x69\x4E\x65\x5F\x58\x6B\x49\x61\x50\x38\x54\x47\x75\x58\x62\x5A\x44\x36\x32\x52\x47\x71\x6F\x23\x67\x69\x64\x3D\x30"];
+		try
+		{
+			// Define spreadsheet URL.
+			mySpreadsheet = mySpreadsheet[0];
+			// Load top five HR leaders.
+			$('.wrapper1').sheetrock({
+				url: mySpreadsheet,
+				sql: 'select *',
+				headersOff: true,
+				userCallback: function(opt) {setTimeout(function () { $('.loader').remove(); $('.wrapper').show();}, 4000);},
+				rowHandler: function(data) {sticky_note( data );}
+			});
+		}
+		catch(err)
+		{
+			alert("error");
+			console.log(err);
+		}
+		function sticky_note(data)
+		{
+			var note = "";
+			var placeholder = "";
+			
+			var att = data.cells.attachment
+			if (att == "") { att = "Javascript:alert('No Docs');" }
+			
+			var sms = data.cells.phone
+			if (sms == "") { sms = "Javascript:alert('No SMS');" } else { sms = "sms:0" + sms ; }
+			
+			var mail = data.cells.mail
+			if (mail == "") { mail = "Javascript:alert('No Mail');" } else { mail = "mailto:" + mail}
+			
+			if (data.cells.status == "בביצוע") {
+				placeholder = ".wrapper2";
+				note += '<div class="note-wrap note-yellow">';
+			} else if (data.cells.status == "בוצע") {
+				placeholder = ".wrapper3";
+				note += '<div class="note-wrap note-green">';
+			} else {
+				placeholder = ".wrapper1";
+				note += '<div class="note-wrap note-blue">';
 			}
-			catch(err)
-			{
-				alert("error");
-				console.log(err);
-			}
-			function sticky_note(data)
-			{
-				var note = "";
-				var placeholder = "";
-				
-				var att = data.cells.attachment
-				if (att == "") { att = "Javascript:alert('No Docs');" }
-				
-				var sms = data.cells.phone
-				if (sms == "") { sms = "Javascript:alert('No SMS');" } else { sms = "sms:0" + sms ; }
-				
-				var mail = data.cells.mail
-				if (mail == "") { mail = "Javascript:alert('No Mail');" } else { mail = "mailto:" + mail}
-				
-				if (data.cells.status == "בביצוע") {
-					placeholder = ".wrapper2";
-					note += '<div class="note-wrap note-yellow">';
-				} else if (data.cells.status == "בוצע") {
-					placeholder = ".wrapper3";
-					note += '<div class="note-wrap note-green">';
-				} else {
-					placeholder = ".wrapper1";
-					note += '<div class="note-wrap note-blue">';
-				}
-				
-				note += '<small>(' + data.cells.status + ')</small>';
-				note += '<h1>' + data.cells.title + '</h1>';
-				note += '<p>' + data.cells.desc + '</p>';
-				note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
-				note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15) + '<br />';
-				note += '<div class="note-footer">';
-				note += '<a href="' + att + '"><span class="note-icon fa fa-paperclip"></span></a>';
-				note += '<a href="' + sms + '"><span class="note-icon fa fa-phone"></span></a>';
-				note += '<a href="' + mail + '"><span class="note-icon fa fa-envelope"></span></a>';
-				note += '</div>';
-				note += '</div>';
-				$(placeholder).append(note) ;
-			}
-			FastClick.attach(document.body);
-			if (navigator.splashscreen) { navigator.splashscreen.hide(); }
-		});
+			
+			note += '<small>(' + data.cells.status + ')</small>';
+			note += '<h1>' + data.cells.title + '</h1>';
+			note += '<p>' + data.cells.desc + '</p>';
+			note += '<p><strong>אחראים : ' + data.cells.members + '</strong></p>';
+			note += '<strong>דדליין : </strong>' + data.cells.date.substring(0, 15) + '<br />';
+			note += '<div class="note-footer">';
+			note += '<a href="' + att + '"><span class="note-icon fa fa-paperclip"></span></a>';
+			note += '<a href="' + sms + '"><span class="note-icon fa fa-phone"></span></a>';
+			note += '<a href="' + mail + '"><span class="note-icon fa fa-envelope"></span></a>';
+			note += '</div>';
+			note += '</div>';
+			$(placeholder).append(note) ;
+		}
+		FastClick.attach(document.body);
+	//});
 	</script>
 </html>
