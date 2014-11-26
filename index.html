@@ -241,9 +241,9 @@
 				url: mySpreadsheet,
 				sql: 'select *',
 				headersOff: true,
-				userCallback: function(opt) {setTimeout(function () { $('.loader').remove(); $('.wrapper').show();}, 4000);},
+				userCallback: function(opt) {setTimeout(function () { $('.loader').remove(); $('.wrapper').show();}, 3500);},
 				rowHandler: function(data) {sticky_note( data );}
-			});}, 100);
+			});}, 500);
 		}
 		catch(err)
 		{
